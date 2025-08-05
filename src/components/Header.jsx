@@ -1,6 +1,21 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 
 const Header = () => {
+    const { user, signOutUser } = useContext(AuthContext);
+
+    const handleSignOut = () => {
+        signOutUser()
+            .then(() => {
+                console.log("User signed out successfully");
+            })
+            .catch(error => {
+                console.error("Error signing out:", error);
+                alert("Sign out failed. Please try again.");
+            });
+    }
+
     const links = <>
         <li><a>Item 1</a></li>
         <li><a>Item 3</a></li>
@@ -26,8 +41,12 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link to="/register">Register</Link>
-                <Link className="btn" to="/signin">Sign In</Link>
+                {user ? <button onClick={handleSignOut} className="btn">Sign Out</button> :
+                    <>
+                        <Link to="/register">Register</Link>
+                        <Link className="btn" to="/signin">Sign In</Link>
+                    </>
+                }
             </div>
         </div>
     );

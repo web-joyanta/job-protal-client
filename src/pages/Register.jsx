@@ -1,5 +1,5 @@
 import Lottie from "lottie-react";
-import registerLottieData from "../assets/Lottie/Login.json";
+import registerLottieData from "../assets/Lottie/register.json";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
@@ -43,7 +43,6 @@ const Register = () => {
                             <input name="email" type="email" className="input" placeholder="Email" />
                             <label className="label">Password</label>
                             <input name="password" type="password" className="input" placeholder="Password" />
-                            <div><a className="link link-hover">Forgot password?</a></div>
                             <button className="btn btn-neutral mt-4">Register</button>
                         </fieldset>
                     </form>
