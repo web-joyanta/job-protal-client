@@ -1,4 +1,4 @@
-import { motion } from "motion/react"
+import { motion } from "framer-motion"
 import team1 from "../../src/assets/team/team1.jpg"
 import team2 from "../../src/assets/team/team2.jpg"
 
@@ -15,7 +15,7 @@ const Banner = () => {
                     />
                     <motion.img
                         animate={{ x: [100, 170, 100] }}
-                        transition={{ duration: 5, repeat: Infinity }}
+                        transition={{ duration: 5, delay: 1, repeat: Infinity }}
                         src={team2}
                         className="max-w-sm rounded-lg shadow-2xl rounded-t-[50px] rounded-br-[50px] border-l-8 border-b-8 border-blue-600"
                     />
