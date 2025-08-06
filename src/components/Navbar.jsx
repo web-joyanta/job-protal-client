@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import logo from "../../src/assets/logo.png"
 
-const Header = () => {
+const Navbar = () => {
     const { user, signOutUser } = useContext(AuthContext);
 
     const handleSignOut = () => {
@@ -17,8 +18,9 @@ const Header = () => {
     }
 
     const links = <>
-        <li><a>Item 1</a></li>
-        <li><a>Item 3</a></li>
+        <li><NavLink to="/">Home</NavLink></li>
+        <li><NavLink>About</NavLink></li>
+        <li><NavLink>service</NavLink></li>
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm">
@@ -33,7 +35,10 @@ const Header = () => {
                         {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <Link to="/" className="btn btn-ghost text-xl">
+                       <img className="w-10" src={logo} alt="nav logo" />
+                        <span className="text-xl font-bold">Job Portal</span>
+                </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -52,4 +57,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default Navbar;
