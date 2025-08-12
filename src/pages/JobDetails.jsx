@@ -6,7 +6,7 @@ const JobDetails = () => {
         <div>
             <h2>{title}</h2>
             <p>{description}</p>
-            <Link to={`/jobApply/:${_id}`}>
+            <Link to={`/jobApply/${_id}`}>
                 <button className="btn btn-primary">Apply Now</button>
             </Link>
         </div>
