@@ -1,11 +1,10 @@
 import { useLoaderData } from "react-router-dom";
 
 const JobDetails = () => {
-    const job = useLoaderData();
-    console.log(job);
+    const {title} = useLoaderData();
     return (
         <div>
-            <h2>Job Details</h2>
+            <h2>{title}</h2>
         </div>
     );
 };
