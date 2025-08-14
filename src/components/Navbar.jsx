@@ -20,7 +20,7 @@ const Navbar = () => {
     const links = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/myApplication">My Application</NavLink></li>
-        <li><NavLink>service</NavLink></li>
+        <li><NavLink to="/addJob">Add Job</NavLink></li>
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm">
