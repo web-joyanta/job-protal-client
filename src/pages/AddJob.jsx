@@ -1,15 +1,53 @@
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import useAuth from "../hooks/useAuth";
+
 const AddJob = () => {
+    const navigate = useNavigate();
+    const { user } = useAuth();
+    console.log(user.displayName)
+
+    const handleAddJob = e => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData);
+        const { min, max, currency, ...newJob } = data;
+        newJob.salaryRange = { min, max, currency };
+        newJob.requirements = newJob.requirements.split(",");
+        newJob.responsibilities = newJob.responsibilities.split(",");
+
+        fetch("http://localhost:5000/jobs", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(newJob)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Job Has been added",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    navigate("/myPostedJobs");
+                }
+            })
+    }
     return (
         <div>
             <h2 className="text-2xl font-medium">Add a New Job</h2>
-            <form className="card-body">
+            <form onSubmit={handleAddJob} className="card-body">
                 <fieldset className="fieldset">
                     {/* Company Name */}
                     <label className="label">Company</label>
                     <input type="text" name="company" placeholder="Company Name" className="input input-bordered w-full" required />
                     {/* Company Logo */}
                     <label className="label">Company Logo URL</label>
-                    <input type="url" name="companyLogo" placeholder="Enter company logo URL" className="input input-bordered w-full" required />
+                    <input type="url" name="company_logo" placeholder="Enter company logo URL" className="input input-bordered w-full" required />
                     {/* title */}
                     <label className="label">Title</label>
                     <input type="text" name="title" className="input w-full" placeholder="Job Title" required />
@@ -63,6 +101,20 @@ const AddJob = () => {
                             <option value="inr">INR</option>
                         </select>
                     </div>
+                    {/* hr email $ name */}
+                    {
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            <div>
+                                <label className="label">Hire Name</label>
+                                <input name="hr_name" className="input w-full" type="text" defaultValue={user.displayName} />
+                            </div>
+                            <div>
+                                <label className="label">Hire Email</label>
+                                <input name="hr_email" className="input w-full" type="text" defaultValue={user.email} />
+                            </div>
+                        </div>
+                    }
+                    {/*  */}
                     {/* Requirements &  Responsibilities*/}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         <div>
@@ -79,7 +131,7 @@ const AddJob = () => {
                     {/* Description */}
                     <label className="label">Description</label>
                     <textarea name="description" placeholder="Enter job description" className="textarea textarea-bordered w-full h-32" required />
-                     <button className="btn btn-neutral mt-4">Add Job</button>
+                    <button className="btn btn-neutral mt-4">Add Job</button>
                 </fieldset>
             </form>
         </div>
